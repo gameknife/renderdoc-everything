@@ -27,6 +27,8 @@ jobs:
     runs-on: windows-2022
     steps:
       - uses: actions/checkout@v4
+      - name: Install zip
+        run: choco install zip
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v2
       - name: Gen and Build dxgi.dll
