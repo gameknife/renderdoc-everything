@@ -1,0 +1,27 @@
+name: Windows CI
+
+on: 
+  pull_request:
+    branches:
+      - main
+      - dev
+  push:
+    branches:
+      - main
+      - 'releases/**'
+    paths:
+      - '.github/workflows/*.yml'
+      - '*.h'
+      - '*.py'
+jobs:
+  build:
+    runs-on: windows-2022
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+    - name: Gen and Build dxgi.dll
+      run: |
+        python ./gen_warpperfile.py dxgi.dll
+        build.bat
+      shell: cmd

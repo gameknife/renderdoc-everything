@@ -1,0 +1,48 @@
+name: Release dxgi dll warpper
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  make-release:
+    runs-on: ubuntu-22.04
+    outputs:
+      uploadurl: ${{ steps.create_release.outputs.upload_url }}
+    steps:
+    - uses: actions/checkout@v4
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        draft: false
+        prerelease: false
+  windows-build:
+    needs: make-release
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+      - name: Gen and Build dxgi.dll
+        run: |
+          python ./gen_warpperfile.py dxgi.dll
+          build.bat
+        shell: cmd
+      - name: Create zip file
+        run: |
+          zip -r renderdoc_everything_${{ github.ref_name }}.zip ./dxgi.dll
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.make-release.outputs.uploadurl }}
+          asset_path: ./renderdoc_everything_${{ github.ref_name }}.zip
+          asset_name: renderdoc_everything_${{ github.ref_name }}.zip
+          asset_content_type: application/zip

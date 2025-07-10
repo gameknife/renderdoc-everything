@@ -1,0 +1,7 @@
+/build/
+/wrapper/
+
+__pycache__/
+*.pyc
+*_orig.dll
+.vscode/
