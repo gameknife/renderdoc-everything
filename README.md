@@ -55,8 +55,10 @@ A dll wrapper tool that enables RenderDoc integration with any( maybe ) D3D/Vulk
 1. **部署包装器**
    ```bash
    # 将编译生成的 dxgi.dll 复制到游戏的可执行文件目录
-   copy dxgi.dll "C:\Path\To\Your\Game"
    # 如果是dxgi.dll这种system32目录下有的dll，请不要拷贝_orig.dll，让注入器自己从系统拷贝
+   copy dxgi.dll "C:\Path\To\Your\Game"
+   # 将你的renderdoc目录下的renderdoc.dll拷贝到游戏的可执行文件目录
+   copy renderdoc.dll "C:\Path\To\Your\Game"
    ```
 
 3. **启动游戏**
