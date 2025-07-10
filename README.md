@@ -1,6 +1,6 @@
 # renderdoc-everything
 
-[windows ci](https://github.com/gameknife/renderdoc-everything/actions/workflows/windows.yml/badge.svg)
+![windows ci](https://github.com/gameknife/renderdoc-everything/actions/workflows/windows.yml/badge.svg)
 
 renderdoc-everything 是一个DLL包装器，它允许您在任何（希望是）使用D3D/Vulkan的游戏中使用RenderDoc进行图形调试，包括steam下的游戏。
 

@@ -22,6 +22,6 @@ jobs:
       uses: microsoft/setup-msbuild@v2
     - name: Gen and Build dxgi.dll
       run: |
-        python ./gen_warpperfile.py dxgi.dll
+        python ./gen_wrapperfile.py dxgi.dll
         build.bat
       shell: cmd
